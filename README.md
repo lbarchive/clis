@@ -27,12 +27,12 @@ All are included in repo.
 
  * Gmail: Mails in inbox
  * Google Reader: Items of subscriptions
- * Feed: Normal feed, RSS, atom, etc. Powered by [http://feedparser.org/ FeedParser]
- * FriendFeed: Home stream. Powered by [http://code.google.com/p/friendfeed-api/ Official library] with my modification in order to use real-time API.
+ * Feed: Normal feed, RSS, atom, etc. Powered by [FeedParser](http://feedparser.org/)
+ * FriendFeed: Home stream. Powered by [Official library](http://code.google.com/p/friendfeed-api/) with my modification in order to use real-time API.
  * Twitter: Shows statuses of you and whom you follow.
  * Twitter Mentions: Grab user's mentions feed.
  * Twitter Search: Search keywords on Twitter.
- * Weather: Shows current weather information from [http://www.weather.com/ weather.com].
+ * Weather: Shows current weather information from [weather.com](http://www.weather.com/).
  * PunBB 1.2: Special support for PunBB 1.2's feed.
  * Tail: Like doing tail -F filename
  * Craigslist: Same as Feed, it's made for dealing some feeds of Craigslist have few entries do not have published or updated dates, that causes those entries show up repeatly.
