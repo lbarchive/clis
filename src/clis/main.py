@@ -519,11 +519,9 @@ class Source(object):
 
   @staticmethod
   def get_entry_id(entry):
-
-    if 'guid' in entry:
-      return entry['guid']
-    if 'id' in entry:
-      return entry['id']
+    
+    for key in ('guid', 'id'):
+      return entry[key]
     return entry['title'] + entry['link']
 
   @staticmethod
@@ -1257,6 +1255,20 @@ class GoogleReader(GoogleBase):
         entries.append(entry)
     feed.entries = entries
     return feed
+
+  @staticmethod
+  def get_entry_id(entry):
+
+    entry_id = super(GoogleReader, GoogleReader).get_entry_id(entry)
+
+    # With FeedParser 5, Google Reader's feed somehow results id a dict
+    if isinstance(entry_id, dict) and 'original-id' in entry_id:
+      entry_id = entry_id['original-id']
+
+    if entry_id:
+      return entry_id
+    else:
+      return entry['title'] + entry['link']
 
 
 class Weather(Source):
