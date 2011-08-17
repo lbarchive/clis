@@ -16,11 +16,9 @@ clis remembers (not all source types) last one it shows you, so after you restar
 
 # Dependencies
 
-All are included in repo.
-
- * [pyratemp](http://www.simple-is-better.org/template/pyratemp.html)
+ * [pyratemp](http://www.simple-is-better.org/template/pyratemp.html) (included)
  * [FeedParser](http://feedparser.org/)
- * [Official FriendFeed API library](http://code.google.com/p/friendfeed-api/)
+ * [Official FriendFeed API library](http://code.google.com/p/friendfeed-api/) (included)
  * [python-oauth2](http://github.com/simplegeo/python-oauth2) for Twitter sources
 
 # Supported Sources
