@@ -1,12 +1,5 @@
 # -*- coding: utf-8 -*-
 #
-# Due to services' license agreement or terms of service, you also must agree
-# with; or
-#  * Do not run clis
-#  * Do not use service that the limitation which you can not comply
-#  * Replace with your own key. A key is an identification data that service
-#    can identify an application.
-#
 # You can specify the sources you want to read in this file. All sources must
 # be placed inside of
 #   sources = [
