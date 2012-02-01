@@ -1288,6 +1288,33 @@ class GoogleReader(GoogleBase):
       return entry['title'] + entry['link']
 
 
+class YouTube(Feed):
+
+  TYPE = 'youtube'
+
+  def __init__(self, src):
+    
+    self.username = src['username']
+    src['feed'] = 'https://gdata.youtube.com/feeds/api/users/%s/newsubscriptionvideos?alt=atom' % self.username
+    self.feed = src['feed'];
+
+    super(YouTube, self).__init__(src)
+
+    # Used as key to store session data
+    self.src_id = self.feed
+    self.src_name = src.get('src_name', 'YouTube')
+    self.interval = src.get('interval', 60)
+    self.output = tpl(src.get('output', '@!ansi.fgreen!@@!ftime(entry["updated"], "%H:%M:%S")!@@!ansi.freset!@ [@!src_name!@] @!entry["title"]!@ @!ansi.fmagenta!@@!surl(entry.link)!@@!ansi.fmagenta!@@!ansi.freset!@@!ansi.freset!@'), escape=None)
+
+    self._init_session()
+    self._load_check_list()
+
+  @staticmethod
+  def get_entry_updated(entry):
+    '''Use published instead of updated, YouTube updates updated very often.'''
+    return entry['published']
+
+
 class Weather(Source):
 
   TYPE = 'weather'
@@ -1463,7 +1490,8 @@ class Tail(Source):
 SOURCE_CLASSES = {'twitter': Twitter, 'twittermentions': TwitterMentions,
     'friendfeed': FriendFeed, 'feed': Feed,
     'sono': StackOverflowNewOnly, 'cl': Craigslist, 'frck': FlickrContacts,
-    'gmail': GoogleMail, 'greader': GoogleReader, 'weather': Weather,
+    'gmail': GoogleMail, 'greader': GoogleReader, 'youtube': YouTube,
+    'weather': Weather,
     'punbb12': PunBB12, 'punbb12onlynew': PunBB12OnlyNew,
     'twittersearch': TwitterSearch, 'tail': Tail}
 

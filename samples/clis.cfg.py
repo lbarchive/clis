@@ -98,6 +98,14 @@ sources = [
         #'output': '@!ansi.fgreen!@@!ftime(entry["updated"], "%H:%M:%S")!@@!ansi.freset!@ [@!src_name!@] @!ansi.fyellow!@@!entry["source"]["title"]!@@!ansi.freset!@: @!entry["title"]!@ @!ansi.fmagenta!@@!surl(entry["link"])!@@!ansi.freset!@',
         },
     {
+        # YouTube: Items of subscriptions
+        'type': 'youtube',
+        #'src_name': 'YouTube',
+        'username': 'username',
+        #'interval': 60,
+        #'output': '@!ansi.fgreen!@@!ftime(entry["updated"], "%H:%M:%S")!@@!ansi.freset!@ [@!src_name!@] @!entry["title"]!@ @!ansi.fmagenta!@@!surl(entry.link)!@@!ansi.freset!@',
+        },
+    {
         # Weather.com
         # Weather.com has very restricted License Agreement (for cli program),
         # if you don't care about that, please do not use my license key.
