@@ -1227,7 +1227,8 @@ class GoogleMail(Feed):
   def get_list(self):
 
     # FIXME Check if we can use ClientLogin, don't like password being stored
-    feed = fp.parse('https://%s:%s@mail.google.com/mail/feed/atom' % (urllib.quote(self.email), urllib.quote(self.password)))
+    # FIXME Unknown issue, if escape '@', it seems to have problem with Python 2.7. (Unsure) Result 401.
+    feed = fp.parse('https://%s:%s@mail.google.com/mail/feed/atom' % (self.email, urllib.quote(self.password)))
     return feed
 
 
