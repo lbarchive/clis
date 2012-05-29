@@ -1269,7 +1269,7 @@ class GoogleReader(GoogleBase):
     # remove read items
     entries = []
     for entry in feed.entries:
-      if not [True for category in entry.categories if category[1].endswith('/state/com.google/read')]:
+      if not [True for tag in entry.tags if tag.term.endswith('/state/com.google/read')]:
         entries.append(entry)
     feed.entries = entries
     return feed
