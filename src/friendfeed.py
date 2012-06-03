@@ -46,11 +46,10 @@ try:
     parse_json = lambda s: cjson.decode(s.decode("utf-8"), True)
 except ImportError:
     try:
-        import simplejson
-        parse_json = lambda s: simplejson.loads(s.decode("utf-8"))
-    except ImportError:
         import json
-        parse_json = lambda s: _unicodify(json.read(s))
+    except ImportError:
+        import simplejson as json
+    parse_json = lambda s: json.loads(s.decode("utf-8"))
 
 
 class FriendFeed(object):
@@ -287,19 +286,6 @@ class FriendFeed(object):
     def _parse_date(self, date_str):
         rfc3339_date = "%Y-%m-%dT%H:%M:%SZ"
         return datetime.datetime(*time.strptime(date_str, rfc3339_date)[:6])
-
-
-def _unicodify(json):
-    """Makes all strings in the given JSON-like structure unicode."""
-    if isinstance(json, str):
-        return json.decode("utf-8")
-    elif isinstance(json, dict):
-        for name in json:
-            json[name] = _unicodify(json[name])
-    elif isinstance(json, list):
-        for part in json:
-            _unicodify(part)
-    return json
 
 
 def _example():
