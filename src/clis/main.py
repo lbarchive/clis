@@ -370,11 +370,24 @@ def getch():
   else:
     return None
 
-def ttywidth():
+def ttywidth(retry=False):
 
   f = os.popen('tput cols', 'r')
-  width = int(f.read())
-  f.close()
+  try:
+    width = int(f.read())
+  except IOError as e:
+    if e.errno == 4:
+      # [Errno 4] Interrupted system call
+      if retry:
+        width = 80
+        p_err('[ttywidth] %s, failed again, set width to %d' % (repr(e), width))
+      else:
+        p_err('[ttywidth] %s, retrying...' % repr(e))
+        return ttywidth(retry=True)
+    else:
+      raise e
+  finally:
+    f.close()
   return width
 
 
