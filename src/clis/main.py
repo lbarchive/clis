@@ -1542,7 +1542,15 @@ class HTTPThread(threading.Thread):
 
     httpd = HTTPServer((options.local_server, int(options.local_port)), ShorteningHandler)
     p_dbg('Local shortening server started')
-    httpd.serve_forever()
+    while True:
+      try:
+        httpd.serve_forever()
+      except IOError as e:
+        if e.errno != 4:
+          raise e
+        p_err('[http] %s, retrying...' % repr(e))
+      finally:
+        break
 
 ################
 # Option Handler
