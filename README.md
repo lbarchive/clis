@@ -56,6 +56,7 @@ Press `<Enter>` to enter command mode, you will see `Command>` prompt, then:
 
  * `<Enter>`: Print a separator
  * `reload`: Reload configuration
+ * `reset <src_name`: Reset session data
  * `clear`: Clear the screen
  * `quit`: Quit clis
  

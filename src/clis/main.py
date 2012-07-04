@@ -691,6 +691,11 @@ class Source(object):
         print entry
         raise e
 
+  def reset(self):
+    '''Reset session data'''
+    session[self.session_id] = {}
+    self.session = session[self.session_id]
+
   def sayit(self, text):
 
     # XXX !!!Experimental!!! Should have no quotation mark in text
@@ -1694,7 +1699,8 @@ def main():
           tty.setraw(fd)
           sys.stdout = STDOUT_R
           sys.stderr = STDERR_R
-          cmd = re.sub('\W', '', cmd)
+          cmd = re.sub('[^a-zA-Z0-9_ ]', '', cmd)
+          cmd = cmd.strip()
           if cmd == 'reload':
             session.close()
             sources, cfg = load_config()
@@ -1706,6 +1712,12 @@ def main():
           elif cmd == 'quit':
             not_quit = False
             break
+          elif cmd.startswith('reset '):
+            _, src_name =  cmd.split(' ', 1)
+            for rst_src in sources:
+              if src_name in ('all', rst_src.src_name):
+                rst_src.reset()
+                p('Session %s resetted\n' % rst_src.src_name)
           elif cmd == "":
             # Entry key
             p('\033[A\033[97;101m' + u'─' * width + '\n\033[39;49m')
