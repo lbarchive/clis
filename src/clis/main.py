@@ -1536,6 +1536,10 @@ class ShorteningHandler(BaseHTTPRequestHandler):
     self.send_header('Location', lurls[id])
     self.end_headers()
 
+  def do_HEAD(self):
+
+    self.do_GET()
+
   def log_message(self, *args):
 
     pass
