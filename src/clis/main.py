@@ -524,7 +524,7 @@ class Source(object):
       if e_updated <= self.check_list[e_id]:
         return False
     # entry's updated is older than all updated in check_list then skip it.
-    if e_updated < min(self.check_list.values()):
+    if self.check_list and e_updated < min(self.check_list.values()):
       return False
     self.check_list[e_id] = e_updated
     return True
