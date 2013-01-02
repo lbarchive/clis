@@ -1,7 +1,7 @@
 #!/usr/bin/python
 # -*- coding: utf-8 -*-
 # clis - CLI Stream Reader
-# Copyright (C) 2009-2011 by Yu-Jie Lin
+# Copyright (C) 2009-2013 by Yu-Jie Lin
 # 
 # Permission is hereby granted, free of charge, to any person obtaining a copy
 # of this software and associated documentation files (the "Software"), to deal
