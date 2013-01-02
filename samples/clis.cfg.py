@@ -85,6 +85,8 @@ sources = [
         #'src_name': 'Gmail',
         'email': 'email@gmail.com',
         'password': 'secret',
+        # use 'all' for all emails, or it will be just unread emails in inbox folder
+        #'label': '',
         #'interval': 60,
         #'output': '@!ansi.fgreen!@@!ftime(entry["updated"], "%H:%M:%S")!@@!ansi.freset!@ @!ansi.fred!@[@!src_name!@]@!ansi.freset!@ @!ansi.fyellow!@@!entry["author"]!@@!ansi.freset!@: @!entry["title"]!@ @!ansi.fmagenta!@@!surl(entry["link"])!@@!ansi.freset!@',
         },

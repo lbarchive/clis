@@ -1237,7 +1237,8 @@ class GoogleMail(Feed):
     
     self.email = src['email']
     self.password = src['password']
-    self.src_id = self.email
+    self.label = src.get('label', '')
+    self.src_id = self.email + ':' + self.label
     self.src_name = src.get('src_name', 'Gmail')
     self.interval = src.get('interval', 60)
     self.output = tpl(src.get('output', '@!ansi.fgreen!@@!ftime(entry["updated"], "%H:%M:%S")!@@!ansi.freset!@ @!ansi.fred!@[@!src_name!@]@!ansi.freset!@ @!ansi.fyellow!@@!entry["author"]!@@!ansi.freset!@: @!entry["title"]!@ @!ansi.fmagenta!@@!surl(entry["link"])!@@!ansi.freset!@'), escape=None)
@@ -1249,7 +1250,9 @@ class GoogleMail(Feed):
 
     # FIXME Check if we can use ClientLogin, don't like password being stored
     # FIXME Unknown issue, if escape '@', it seems to have problem with Python 2.7. (Unsure) Result 401.
-    feed = fp.parse('https://%s:%s@mail.google.com/mail/feed/atom' % (self.email, urllib.quote(self.password)))
+    # https://developers.google.com/google-apps/gmail/gmail_inbox_feed
+    feed = fp.parse('https://%s:%s@mail.google.com/mail/feed/atom/%s' % (
+        self.email, urllib.quote(self.password), self.label))
     return feed
 
 
