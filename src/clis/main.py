@@ -1584,6 +1584,8 @@ def parser_args():
       default=None, help='Address of local shortening server (Default: localhost)')
   parser.add_option('-p', '--local-port', dest='local_port',
       default=None, help='Which port to listen (Default: 8080)')
+  parser.add_option('-1', '--oneshot', dest='oneshot', action='store_true',
+      default=False, help='Get updates from all sources once, then loop forever')
 
   options, args = parser.parse_args()
 
@@ -1695,10 +1697,18 @@ def main():
   time.sleep(0.1)
   p('Initialized.\n')
   not_quit = True
+  oneshoted = False
   while not_quit:
+    restart = False
+    if options.oneshot and not oneshoted:
+      p('Running oneshot...\n')
     try:
       for src in sources:
-        src.update()
+        if options.oneshot and not oneshoted:
+          src.last_accessed = 0
+          src.update()
+        if not options.oneshot:
+          src.update()
         if getch() == "\x0d":
           sys.stdout = sys.__stdout__
           sys.stderr = sys.__stderr__
@@ -1719,6 +1729,14 @@ def main():
           elif cmd == 'clear':
             # Clear screen
             p('\033[2J\033[H')
+          elif cmd == 'oneshot':
+            options.oneshot = True
+            oneshoted = False
+            restart = True
+            break
+          elif cmd == 'resume':
+            p('Resumed continuously updating.\n')
+            options.oneshot = False
           elif cmd == 'quit':
             not_quit = False
             break
@@ -1736,6 +1754,12 @@ def main():
       # Conflict with signal
       # select.error: (4, 'Interrupted system call') on p.poll(1)
       pass
+    if restart:
+      continue
+    if options.oneshot and not oneshoted:
+      p('All sources done updating @ %s\n' % datetime.now())
+      p('You may `quit`, `oneshot` again, or `resume` updating.\n')
+      oneshoted = True
   session.do_sync(sources)
 
 
